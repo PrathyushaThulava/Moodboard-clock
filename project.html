@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoodBoard Clock</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #5b3cc4, #674dc5);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    label {
+      font-size: 1.1rem;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      max-width: 600px;
+      animation: fadeInUp 1s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .emoji {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>MoodBoard Clock</h1>
+  <div class="radio-group">
+    <label><input type="radio" name="time" value="morning"> Morning</label>
+    <label><input type="radio" name="time" value="afternoon"> Afternoon</label>
+    <label><input type="radio" name="time" value="evening"> Evening</label>
+    <label><input type="radio" name="time" value="night"> Night</label>
+  </div>
+
+  <div class="message" id="message">
+    <div class="emoji">☀️</div>
+    <div class="text">Select a time of day to see your motivational message.</div>
+  </div>
+
+  <script>
+    const messageEl = document.getElementById('message');
+    const radios = document.querySelectorAll('input[name="time"]');
+
+    const messages = {
+      morning: {
+        emoji: "🥱",
+        text: "Good Morning!\nRise and shine! Start your day with energy and purpose."
+      },
+      afternoon: {
+        emoji: "⛅",
+        text: "Good Afternoon!\nKeep pushing through! Stay productive and focused."
+      },
+      evening: {
+        emoji: "🏙️",
+        text: "Good Evening!\nTime to relax and reflect on your day."
+      },
+      night: {
+        emoji: "🌙",
+        text: "Good Night!\nUnwind and recharge for tomorrow. Sweet dreams!"
+      }
+    };
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        const value = radio.value;
+        const { emoji, text } = messages[value];
+
+        messageEl.innerHTML = `
+          <div class="emoji">${emoji}</div>
+          <div class="text">${text}</div>
+        `;
+      });
+    });
+  </script>
+</body>
+</html>
